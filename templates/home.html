@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Productivity Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Adaptive Productivity Analysis</h1>
+    <p>Predict your daily productivity using sleep, work, and focus level.</p>
+
+    <form method="POST">
+
+        <input type="number" step="0.1" name="sleep"
+               placeholder="Sleep Hours" required>
+
+        <input type="number" step="0.1" name="work"
+               placeholder="Focused Work Hours" required>
+
+        <input type="number" name="focus" min="1" max="10"
+               placeholder="Focus Level (1-10)" required>
+
+        <button type="submit">Analyze</button>
+        <button type="reset" class="reset-btn">Reset</button>
+
+    </form>
+
+    {% if message %}
+        <p class="error">{{ message }}</p>
+    {% endif %}
+
+    {% if score is not none %}
+        <h2>Your Productivity Score: {{ score }}%</h2>
+
+        {% if score >= 80 %}
+            <p class="good">Excellent productivity today!</p>
+        {% elif score >= 60 %}
+            <p class="average">Good productivity. Can improve more.</p>
+        {% else %}
+            <p class="low">Low productivity. Improve sleep or focus.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+</body>
+</html>
